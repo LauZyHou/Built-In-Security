@@ -1,0 +1,35 @@
+%\documentclass[a4paper,12pt]{book}
+\documentclass[UTF8,a4paper,12pt,oneside]{book}
+%\usepackage[utf8]{inputenc}
+% 导入中文宏
+\usepackage{ctex}
+% align环境
+\usepackage{amsmath}
+% 插图用
+\usepackage{graphicx}
+% 禁止图表浮动跨越section
+\usepackage[section]{placeins}
+
+\begin{document}
+
+\title{\heiti 内生安全建模工具sbid使用手册}
+\author{\kaishu 内生安全华师大组}
+\date{\today}
+
+\frontmatter
+\maketitle
+\tableofcontents
+
+\mainmatter
+\include{./TeX_files/chapter01}
+\include{./TeX_files/chapter02}
+\include{./TeX_files/chapter03}
+\include{./TeX_files/chapter04}
+\include{./TeX_files/chapter05}
+\include{./TeX_files/chapter06}
+\include{./TeX_files/chapter07}
+
+\backmatter
+% bibliography, glossary and index would go here.
+
+\end{document}
