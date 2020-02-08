@@ -1,0 +1,200 @@
+\chapter{Model子模块}
+Model子模块中定义了sbid建模工具中所使用的底层数据结构，即是MVVM模式中的模型层。
+\section{ResourceManager}
+ResourceManager是统一管理模型层的全局数据资源和资源向XML格式转换的工具类。
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{公共属性}                                  & \textbf{描述}         \\ \hline
+		Protocol currentProtocol                       & 引用当前用户所在的Protocol   \\ \hline
+		List\textless{}Protocol\textgreater protocols  & 管理所有的Protocol       \\ \hline
+		List\textless{}Method\textgreater innerMethods & 管理所有的内置函数           \\ \hline
+		List\textless{}string\textgreater cryptoNames  & 管理所有的加密算法           \\ \hline
+		TextBlock tipTextBlock                         & 引用窗体上的提示条           \\ \hline
+		\textbf{公共方法}                                  & \textbf{描述}         \\ \hline
+		void Protocol2Xml                       & Protocol对象向XML文件的转换 \\ \hline
+	\end{tabular}
+\end{table}
+
+\section{Attribute}
+Attribute定义了类型-标识符的序偶，用在sbid工具创建的类图的字段定义，或是方法的形参表定义上。
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{公共属性}     & \textbf{描述}    \\ \hline
+		string Type       & 类型             \\ \hline
+		string Identifier & 标识符            \\ \hline
+		string ShowString & 形如[int a;]的展示串 \\ \hline
+	\end{tabular}
+\end{table}
+
+\section{UserType2}
+UserType2定义了用户自定义类型的数据结构。
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{公共属性}                                                   & \textbf{描述} \\ \hline
+		ObservableCollection\textless{}Attribute\textgreater Attributes & 包含的各个字段     \\ \hline
+		string Name                                                     & 自定义类型名      \\ \hline
+	\end{tabular}
+\end{table}
+
+\section{Method}
+Method定义了进程模板中集成的方法调用的数据结构。
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{公共属性}                                                   & \textbf{描述} \\ \hline
+		string ReturnType                                               & 返回值类型       \\ \hline
+		string Identifier                                               & 方法名         \\ \hline
+		ObservableCollection\textless{}Attribute\textgreater Parameters & 形参列表        \\ \hline
+		string CryptoName                                               & 加解密方法名      \\ \hline
+		string ShowString                                               & 展示串(完整)     \\ \hline
+		string MethodHeadString                                         & 展示串(函数头)    \\ \hline
+	\end{tabular}
+\end{table}
+
+\section{CommMethod}
+CommMethod定义了进程模板中集成的通信方法的数据结构。
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{公共属性}                                                   & \textbf{描述} \\ \hline
+		string Identifier                                               & 方法名         \\ \hline
+		ObservableCollection\textless{}Attribute\textgreater Parameters & 形参列表        \\ \hline
+		string InOut                                                    & 输入输出类型      \\ \hline
+		string ShowString                                               & 展示串(完整)     \\ \hline
+	\end{tabular}
+\end{table}
+
+\section{Process}
+Process定义了进程模板的数据结构。
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{公共属性}                                                     & \textbf{描述} \\ \hline
+		string Name                                                       & 进程模板的名称     \\ \hline
+		ObservableCollection\textless{}Attribute\textgreater Attributes   & 字段列表        \\ \hline
+		ObservableCollection\textless{}Method\textgreater Methods         & 方法列表        \\ \hline
+		ObservableCollection\textless{}CommMethod\textgreater CommMethods & 通信方法列表      \\ \hline
+	\end{tabular}
+\end{table}
+
+\section{State}
+State定义了状态机上状态的数据结构，其中只有一个string类型的Name字段，表示状态的名称。
+
+\section{Transition}
+Transition定义了状态机上转移关系的数据结构。
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{公共属性}                                             & \textbf{描述} \\ \hline
+		State FromState                                           & 源状态引用       \\ \hline
+		State ToState                                             & 目标状态引用      \\ \hline
+		string Guard                                              & 转移条件        \\ \hline
+		ObservableCollection\textless{}string\textgreater Actions & 转移的操作表      \\ \hline
+	\end{tabular}
+\end{table}
+
+\section{StateMachine}
+StateMachine定义了状态机的数据结构，每个进程模板逻辑上对应一个状态机。
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{公共属性}                                                     & \textbf{描述} \\ \hline
+		string Name                                                       & 状态机名称       \\ \hline
+		ObservableCollection\textless{}State\textgreater States           & 状态列表        \\ \hline
+		ObservableCollection\textless{}Transition\textgreater Transitions & 转移关系列表      \\ \hline
+	\end{tabular}
+\end{table}
+
+\section{Axiom}
+Axiom定义了公理的数据结构。
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{公共属性}                                             & \textbf{描述} \\ \hline
+		string Name                                               & 公理名称        \\ \hline
+		ObservableCollection\textless{}Method\textgreater Methods & 涉及的方法       \\ \hline
+		ObservableCollection\textless{}string\textgreater Ax      & 规约描述        \\ \hline
+	\end{tabular}
+\end{table}
+
+\section{SafetyProperty}
+SafetyProperty定义了功能安全性质的数据结构。
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{公共属性}                                                & \textbf{描述} \\ \hline
+		string Name                                                  & Safety名称    \\ \hline
+		ObservableCollection\textless{}string\textgreater CTLs       & CTL公式       \\ \hline
+		ObservableCollection\textless{}string\textgreater Invariants & 不变性         \\ \hline
+	\end{tabular}
+\end{table}
+
+\section{Confidential}
+Confidential定义了保密性性质的数据结构，属于信息安全性质。
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{公共属性}       & \textbf{描述} \\ \hline
+		Process Process     & 选择的进程模板     \\ \hline
+		Attribute Attribute & 该进程模板上的指定字段       \\ \hline
+	\end{tabular}
+\end{table}
+
+\section{Authenticity}
+Authenticity定义了认证性质的数据结构，属于信息安全性质。
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{公共属性}        & \textbf{描述} \\ \hline
+		Process Process1     & 选择的进程模板A    \\ \hline
+		State State1         & A的状态机上的指定状态 \\ \hline
+		Attribute Attribute1 & A上的指定字段     \\ \hline
+		Process Process2     & 选择的进程模板B    \\ \hline
+		State State2         & B的状态机上的指定状态 \\ \hline
+		Attribute Attribute2 & B上的指定字段     \\ \hline
+	\end{tabular}
+\end{table}
+
+\section{SecurityProperty}
+SecurityProperty定义了信息安全性质的数据结构。
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{公共属性}                                                          & \textbf{描述} \\ \hline
+		string Name                                                            & Security名称  \\ \hline
+		ObservableCollection\textless{}Confidential\textgreater Confidentials  & 保密性         \\ \hline
+		ObservableCollection\textless{}Authenticity\textgreater Authenticities & 认证性         \\ \hline
+	\end{tabular}
+\end{table}
+
+\section{Protocol}
+Protocol定义了协议的数据结构。
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{公共属性}                                                  & \textbf{描述} \\ \hline
+		string Name                                                    & 协议名称        \\ \hline
+		List\textless{}UserType2\textgreater userType2                 & 自定义类型表      \\ \hline
+		List\textless{}Process\textgreater processes                   & 进程模板表       \\ \hline
+		List\textless{}SecurityProperty\textgreater securityProperties & 信息安全性质表     \\ \hline
+		List\textless{}SafetyProperty\textgreater safetyProperties     & 功能安全性质表     \\ \hline
+		List\textless{}Axiom\textgreater axioms                        & 公理表         \\ \hline
+	\end{tabular}
+\end{table}

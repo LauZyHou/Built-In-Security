@@ -1,0 +1,11 @@
+\chapter{工程简介}
+
+\section{技术选型}
+todo 简要介绍WPF
+\par
+todo 简要介绍MVVM设计模式
+
+\section{工程结构}
+在sbid解决方案下，有四个子项目，其中NetworkModel、NetworkUI和Utils是用于实现绘图和连线的开源工具，它们被放置在ExtraApps目录下，而建模工具在sbid项目中进行开发。
+\par
+sbid项目主要包括Model、UI、UserControl和ViewModel四个子模块，分别处在与之同名的目录下。其中，Model模块中定义了项目的下层数据结构，UI模块中定义了项目中视图层的WPF窗体，UserControl模块中定义了项目中视图层的WPF用户自定义控件，ViewModel模块中定义了视图层和数据层交互的中间类。
