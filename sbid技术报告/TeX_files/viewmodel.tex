@@ -1,0 +1,56 @@
+\chapter{ViewModel子模块}
+ViewModel子模块中定义了sbid工具中数据和视图的关联类，即是MVVM模式中的模型-视图层。对于Model子模块中的每个数据结构，在ViewModel子模块中都有对应的关联类，其中集成了Model对象，并添加了一些视图层需要使用的方法和属性，对于这些ViewModel不再一一列举，以下仅说明不与Model子模块中数据类相对应的ViewModel类。
+
+\section{StateMachinePanelVM}
+StateMachinePanelVM是状态机绘图面板的ViewModel类，将作为StateMachinePanel的DataContxt。
+\par
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{公共属性}                 & \textbf{描述} \\ \hline
+		NetworkViewModel Network      & 绘图网络        \\ \hline
+		StateMachineVM StateMachineVM & 对应的状态机      \\ \hline
+	\end{tabular}
+\end{table}
+\par
+状态机面板所集成的NetworkViewModel是用于绘图的、定义结点和连线的容器，除了状态机之外，其它绘图面板也需要集成此对象。
+\par
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{公共方法}                     & \textbf{描述} \\ \hline
+		InitialStateVM CreateInitialState & 创建初始状态      \\ \hline
+		StateVM CreateState               & 创建普通状态      \\ \hline
+		FinalStateVM CreateFinalState     & 创建终止状态      \\ \hline
+	\end{tabular}
+\end{table}
+\par
+在sbid工具中，状态机的初始状态总是名为init的状态，终止状态总是名为final的状态，创建这两类状态时，需要到进程模板的状态机引用表中查询是否已经创建过了，如果创建过了，就直接取出其引用，否则才重新创建。
+\par
+在创建普通状态时，该接口需要传入要创建的状态名，这时要检查该状态是否已经创建过，如果创建过就直接取出引用来使用。sbid工具中的状态机并不反对状态重名，名字相同的状态将表示同一个状态，只是分开来定义了而已。对逻辑上相同的状态结点，需要使用相同的State对象引用。
+\par
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{公共方法}                      & \textbf{描述} \\ \hline
+		TransitionVM ConnectionDragStarted & 用户开始拖拽连线    \\ \hline
+		void ConnectionDragging            & 用户正在拖拽连线    \\ \hline
+		void ConnectionDragCompleted       & 用户完成拖拽连线    \\ \hline
+	\end{tabular}
+\end{table}
+\par
+当用户从锚点开始拖拽连线时，对于已经有转移关系的锚点，就需要将这个转移关系删除，拖拽时监听鼠标位置实时跟踪箭头。拖拽完成后，还要判断是在锚点上完成还是在空白处完成。如果是在空白处完成，则直接放弃正在创建的转移关系。如果是在锚点处完成，则需要先删除锚点上之前维护的转移关系，再创建新的转移关系。
+
+\section{AttackTreePanelVM}
+todo 攻击树相关
+
+\section{AttackNode}
+todo 攻击树相关
+
+\section{RelationNode}
+todo 攻击树相关
+
+
