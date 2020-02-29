@@ -45,3 +45,35 @@
 
 
 \section{威胁和规约}
+安全威胁模型是对整个攻击过程的结构化和系统化描述。开放式的网络环境以及分布式系统中应用软件的复杂特性使得对攻击模式描述越来越困难。拟研究能够对开放网络环境下应用软件多阶段安全威胁行为进行形式建模和分析的方法，研究安全策略（包括访问控制等）的形式建模方法。
+\subsection{攻击树}
+攻击树（Attack trees） 为我们提供了一种正式而条理清晰的方法来描述系统所面临的安全威胁和系统可能受到的多种攻击。我们用树型结构来表示系统面临的攻击，其中根节点代表被攻击的目标，叶节点表示达成攻击目标的方法。当攻击树应用在具体实例中时，其结构可能变得庞大而复杂。一个完整的攻击树很可能包括成百上千的叶节点，即便如此，攻击树也可以在很大程度上帮助我们判断系统存在的威胁和决定应对攻击的方法。本项目中攻击树的计算伪代码如下：
+\begin{lstlisting}
+def calculate(root):
+	ans = false
+	if (root.isActive):
+		return calculate(root.childNodes[0])
+	else:
+		if root.condition == “ACTIVE”:
+			return calculate(root.childNodes[0])
+		elif root.condition == “TRUE”:
+			return true
+		elif root.condition == “FALSE”:
+			return false
+		else:
+			if root.name == “AND”:
+				ans = true
+				for node in root.childNodes:
+					if (!calculate(node)):
+						ans = false
+				return ans
+			if root.name == “OR”:
+				ans = false
+				for node in root.childNodes:
+					if (calculate(node))
+						ans = true
+				return ans
+			if root.name == “NEG”:
+				return !calculate(root.childNodes[0])
+
+\end{lstlisting}
